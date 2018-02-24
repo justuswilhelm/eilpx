@@ -25,8 +25,14 @@ def sort_img(img, args):
             img[y:y + args.sort_len, x].sort(axis=0)
 
 
-def write_file(out_path, img):
-    Image.fromarray(img).save(out_path, "JPEG")
+def write_file(out_path, img, args):
+    if args.jpeg_bork:
+        kwargs = {
+            'quality': 10,
+        }
+    else:
+        kwargs = {}
+    Image.fromarray(img).save(out_path, "JPEG", **kwargs)
 
 
 def main(args):
@@ -35,7 +41,7 @@ def main(args):
     out_path = "{}_out{}".format(file_name, ext)
     img = read_file(in_path).copy()
     sort_img(img, args)
-    write_file(out_path, img)
+    write_file(out_path, img, args)
 
 
 if __name__ == "__main__":
@@ -44,5 +50,6 @@ if __name__ == "__main__":
     parser.add_argument('--threshold', default=100, type=int)
     parser.add_argument('--sort-len', default=100, type=int)
     parser.add_argument('--light', default=False, action='store_true')
+    parser.add_argument('--jpeg-bork', default=False, action='store_true')
     args = parser.parse_args()
     main(args)
