@@ -3,12 +3,12 @@ from argparse import ArgumentParser
 from os import path
 
 import numpy as np
-import matplotlib.pyplot as plt
+from PIL import Image
 from tqdm import tqdm
 
 
 def read_file(in_path):
-    return plt.imread(in_path)
+    return np.asarray(Image.open(in_path), dtype=np.uint8)
 
 
 def sort_img(img, args):
@@ -26,7 +26,7 @@ def sort_img(img, args):
 
 
 def write_file(out_path, img):
-    plt.imsave(out_path, img)
+    Image.fromarray(img).save(out_path, "JPEG")
 
 
 def main(args):
