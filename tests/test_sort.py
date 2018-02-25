@@ -1,17 +1,7 @@
 """."""
-from unittest.mock import MagicMock
-
-import pytest
 import numpy as np
 
 from eilpx import sort
-
-
-@pytest.fixture
-def args():
-    result = MagicMock()
-    result.sort_len = 0
-    return result
 
 
 def test_consecutive_values():
@@ -25,7 +15,7 @@ def test_consecutive_values():
     ]
 
 
-def test_sort_img(args):
+def test_sort_img():
     img = np.array(
         [
             [1, 2, 1, 0],
@@ -37,7 +27,6 @@ def test_sort_img(args):
     sort.sort_img(
         img,
         spots,
-        args,
     )
     assert img.tolist() == [
         [1, 1, 2, 0],

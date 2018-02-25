@@ -23,19 +23,19 @@ def find_consecutive_values(img):
     return ranges
 
 
-def get_spots(img, args):
+def get_spots(img, threshold, light=False):
     mean = np.mean(img, axis=2)
-    if args.light:
-        return mean > args.threshold
+    if light:
+        return mean > threshold
     else:
-        return mean < args.threshold
+        return mean < threshold
 
 
-def sort_img(img, spots, args):
+def sort_img(img, spots, sort_len=0):
     """Sort an image at spots, in-place."""
     ranges = find_consecutive_values(spots)
     for (y, x_start, x_end) in tqdm(ranges):
-        img[y, x_start:x_end + 1 + args.sort_len].sort(axis=0)
+        img[y, x_start:x_end + 1 + sort_len].sort(axis=0)
 
 
 def main(args):
@@ -43,8 +43,8 @@ def main(args):
     img = eilpx.read_file(in_path).copy()
 
     for _ in range(2):
-        spots = get_spots(img, args)
-        sort_img(img, spots, args)
+        spots = get_spots(img, args.threshold, args.light)
+        sort_img(img, spots, args.sort_len)
         img = eilpx.transpose_img(img)
 
     eilpx.write_file(eilpx.to_out_path(in_path), img, args)
