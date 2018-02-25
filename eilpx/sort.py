@@ -33,7 +33,6 @@ def get_spots(img, args):
 
 def sort_img(img, spots, args):
     """Sort an image at spots, in-place."""
-
     ranges = find_consecutive_values(spots)
     for (y, x_start, x_end) in tqdm(ranges):
         img[y, x_start:x_end + 1 + args.sort_len].sort(axis=0)
