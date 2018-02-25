@@ -43,14 +43,9 @@ def main(args):
     in_path = args.in_path
     img = eilpx.read_file(in_path).copy()
 
-    spots = get_spots(img, args)
-    sort_img(img, spots, args)
-
-    img = eilpx.transpose_img(img)
-
-    spots = get_spots(img, args)
-    sort_img(img, spots, args)
-
-    img = eilpx.transpose_img(img)
+    for _ in range(2):
+        spots = get_spots(img, args)
+        sort_img(img, spots, args)
+        img = eilpx.transpose_img(img)
 
     eilpx.write_file(eilpx.to_out_path(in_path), img, args)
