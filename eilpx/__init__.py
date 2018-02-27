@@ -9,13 +9,14 @@ def read_file(in_path):
     return np.asarray(Image.open(in_path), dtype=np.uint8)
 
 
-def write_file(out_path, img, args):
+def write_file(out_path, img):
     Image.fromarray(img).save(out_path, "PNG")
 
 
-def to_out_path(in_path):
+def to_out_path(in_path, suffix=None):
     file_name, ext = path.splitext(in_path)
-    return "{}_out{}".format(file_name, ext)
+    suffix = "_{}".format(suffix) if suffix is not None else ""
+    return "{}_out{}{}".format(file_name, suffix, ext)
 
 
 def transpose_img(img):

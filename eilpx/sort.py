@@ -47,4 +47,4 @@ def main(args):
         sort_img(img, spots, args.sort_len)
         img = eilpx.transpose_img(img)
 
-    eilpx.write_file(eilpx.to_out_path(in_path), img, args)
+    eilpx.write_file(eilpx.to_out_path(in_path, args.suffix), img)
