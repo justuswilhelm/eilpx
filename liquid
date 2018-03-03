@@ -1,0 +1,5 @@
+#!/usr/bin/env fish
+for i in (seq -f '%04g' 100 1 150)
+    echo $i
+    ./sort.py $argv[1] --threshold $i --sort-len 200 --suffix $i
+end
