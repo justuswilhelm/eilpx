@@ -26,7 +26,7 @@ def find_consecutive_values(img):
 def get_spots(img, threshold, light=False):
     mean = np.mean(img, axis=2)
     if light:
-        return mean > threshold
+        return mean >= threshold
     else:
         return mean < threshold
 
